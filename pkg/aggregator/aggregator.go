@@ -1,29 +1,29 @@
 package aggregator
 
 import (
-	"github.com/JonathanNasc/toroburro/pkg/sources"
 	"github.com/JonathanNasc/toroburro/pkg/assets"
 	"github.com/JonathanNasc/toroburro/pkg/settings"
+	"github.com/JonathanNasc/toroburro/pkg/sources"
 )
 
-func GetAssetsPriceList(configs []settings.Asset) []assets.AssetPrice {
-	var allAssetsPrice []assets.AssetPrice
+func GetAssetsResultList(configs []settings.Asset) []assets.AssetResult {
+	var allAssetsResult []assets.AssetResult
 	for _, config := range configs {
-		assetsPriceBySource := getAssetsPriceBySource(config.Codes, config.Source)
-		allAssetsPrice = append(allAssetsPrice, assetsPriceBySource...)
+		assetsResultBySource := getAssetsResultBySource(config.Codes, config.Source)
+		allAssetsResult = append(allAssetsResult, assetsResultBySource...)
 	}
 
-	return allAssetsPrice
+	return allAssetsResult
 }
 
-func getAssetsPriceBySource(assetCodes []string, sourceName string) []assets.AssetPrice {
-	var assetsPriceList []assets.AssetPrice
+func getAssetsResultBySource(assetCodes []string, sourceName string) []assets.AssetResult {
+	var assetsResultList []assets.AssetResult
 	service := sources.Resolve(sourceName)
-	
+
 	for _, code := range assetCodes {
 		asset := service.GetAsset(code)
-		assetsPriceList = append(assetsPriceList, asset)
+		assetsResultList = append(assetsResultList, asset)
 	}
 
-	return assetsPriceList
+	return assetsResultList
 }

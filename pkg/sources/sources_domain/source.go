@@ -5,5 +5,6 @@ import (
 )
 
 type Source interface {
-	GetAsset(code string) assets.AssetPrice
+	GetAsset(code string) assets.AssetResult
+	GetName() string
 }

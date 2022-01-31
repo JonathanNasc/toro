@@ -2,17 +2,18 @@ package settings
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"sync"
 )
 
-const fileName string = "alpha_vantage"
+const fileName string = "settings.json"
 
 var settings Settings
 
 type Source struct {
 	Name string `json:"name"`
-	ApiKey string `json:"apy-key"`
+	ApiKey string `json:"api-key"`
 }
 
 type Asset struct {
@@ -38,7 +39,7 @@ func LoadSettings() Settings {
 	file, _ := ioutil.ReadFile(fileName)
 	err := json.Unmarshal(file, &settings)
 	if err != nil {
-		panic("Something went wrong during file read")
+		panic("Something went wrong during file read: " + err.Error())
 	}
 
 	return settings
